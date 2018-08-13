@@ -17,12 +17,14 @@
 
   <div class="gameWrapper">
     <div *ngFor="let t of token">
+      <!-- allumette visible que si son status l'autorise -->
       <div [className]="t.cssClass" *ngIf="t.status == 'visible'"> </div>
     </div>
   </div>
 
   <button *ngIf="statusGame == 'unstarted'" class="startPlay" (click)="start()" >Play</button>
 
+  <!-- visible que si la partie est lancée et que c'est a moi de jouer -->
   <div class="chooseWrapper" *ngIf="statusGame == 'started' && statusPlayer === 'user'" >
     <div class="choice choice1" (click)="userChoose(1)">1</div>
     <div class="choice choice2" (click)="userChoose(2)">2</div>

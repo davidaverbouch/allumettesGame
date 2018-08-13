@@ -15,6 +15,7 @@ export class AppComponent {
   statusGame = 'unstarted';
 
   constructor() {
+    //   par defaut, l'ordinateur commence
     this.statusPlayer = 'computer';
     this.init();
   }
@@ -22,6 +23,7 @@ export class AppComponent {
   init() {
 
     this.token = [];
+    // nb aleatoire de token (un minimum de 12 pour une partie interessante)
     this.nbToken = Math.round(Math.random() * 10) + 12;
 
     for (let i = 0; i < this.nbToken; i++) {
@@ -35,7 +37,7 @@ export class AppComponent {
   }
 
   play() {
-
+        // pour gagner l'adversaire doit se retrouver avec 4 allumettes ! 
       switch (this.nbToken) {
           case 0:
               break;
@@ -60,19 +62,22 @@ export class AppComponent {
 
   userChoose (nbToken) {
       this.take(nbToken, 'user');
-
+        // simuler une reflexion de l'ordi permettant l'animation 
       setTimeout(() => { this.play(); }, 1500);
   }
 
   take (nbToken, statusPlayer) {
+    //   changement de joueur en laissant le temps a l'animation
     (this.statusPlayer === 'computer') ? setTimeout(() => { this.statusPlayer = 'user'; }, 1500) : this.statusPlayer = 'computer';
     this.nbToken -= nbToken;
 
+    // partie terminée, on en relance une
     if (this.nbToken <= 0) { alert(statusPlayer + ' win !'); setTimeout(() => { this.init(); }, 500); }
 
     for (let i = 0; i < nbToken; i++) {
         let len = this.nbToken - 1 + nbToken;
         this.token[len - i].hide();
+        // cacher les dernieres allumettes selectionnées
     }
 
   }
